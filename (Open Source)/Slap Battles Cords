@@ -1,0 +1,25 @@
+--All cords for Slap Battles.
+
+--Island 1
+X = -1.5, Y = -4, Z = 206.7
+
+--Island 2
+X = -6.3, Y = -4, Z = 206.7
+
+--Island 3
+X = -205.4, Y = -4, Z = 0
+
+--Island 4 (floating island)
+X = -393, Y = 51, Z = 0
+
+--Insta death
+X = -270, Y = -4, Z = 0
+
+--Cannon
+X = 250, Y = 34, Z = 175
+
+--Moai Island
+X = 240, Y = -2.5, Z = -30.7
+
+--Lobby
+X = -890, Y = 328, Z = -5
