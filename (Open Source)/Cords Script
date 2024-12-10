@@ -1,0 +1,54 @@
+--where you click it tp's you too aswell! :D
+
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "PositionTrackerGui"
+screenGui.Parent = player:WaitForChild("PlayerGui")
+
+local frame = Instance.new("Frame")
+frame.Name = "PositionBox"
+frame.Size = UDim2.new(0, 200, 0, 50)
+frame.Position = UDim2.new(0, 10, 1, -60) -- Bottom-left corner with some padding
+frame.BackgroundColor3 = Color3.new(0, 0, 0) -- Black
+frame.BackgroundTransparency = 0.25 -- 75% transparency
+frame.BorderSizePixel = 0
+frame.Parent = screenGui
+
+local label = Instance.new("TextLabel")
+label.Name = "PositionLabel"
+label.Size = UDim2.new(1, 0, 1, 0)
+label.Position = UDim2.new(0, 0, 0, 0)
+label.BackgroundTransparency = 1
+label.TextColor3 = Color3.new(1, 1, 1) -- White text
+label.Font = Enum.Font.SourceSans
+label.TextSize = 16
+label.Text = "Position: Loading..."
+label.Parent = frame
+
+local function updatePosition()
+    while true do
+        if character and humanoidRootPart then
+            local position = humanoidRootPart.Position
+            label.Text = string.format("Position: X=%.1f, Y=%.1f, Z=%.1f", position.X, position.Y, position.Z)
+        else
+            label.Text = "Position: Not available"
+        end
+        wait(1) -- Update every 1 second (change to 0.5 for 0.5 seconds)
+    end
+end
+
+local function teleportToCursor()
+    local mouse = player:GetMouse()
+    mouse.Button1Down:Connect(function()
+        if mouse.Target then
+            local targetPosition = mouse.Hit.p
+            humanoidRootPart.CFrame = CFrame.new(targetPosition + Vector3.new(0, 3, 0)) -- Slightly above the ground
+        end
+    end)
+end
+
+spawn(updatePosition)
+teleportToCursor()
